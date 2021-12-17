@@ -30,6 +30,7 @@
 #include <cstring>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include "qrcodegen.hpp"
@@ -221,12 +222,20 @@ static std::string toSvgString(const QrCode &qr, int border) {
 
 // Prints the given QrCode object to the console.
 static void printQr(const QrCode &qr) {
+	std::ofstream outfileXY, outfileQR;
+	outfileXY.open("out_XY.txt");
+	outfileQR.open("out_QR.txt");
 	int border = 4;
 	for (int y = -border; y < qr.getSize() + border; y++) {
 		for (int x = -border; x < qr.getSize() + border; x++) {
-			std::cout << (qr.getModule(x, y) ? "##" : "  ");
+			if(qr.getModule(x, y) == 1){
+				outfileXY << "x: " << x << " y: " << y << std::endl;
+				outfileQR << "##";
+			}else{
+				outfileQR << "  ";
+			}
 		}
-		std::cout << std::endl;
+		outfileQR << std::endl;
 	}
-	std::cout << std::endl;
+	outfileQR << std::endl;
 }
