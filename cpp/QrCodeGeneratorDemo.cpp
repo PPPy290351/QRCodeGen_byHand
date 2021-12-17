@@ -41,7 +41,7 @@ using qrcodegen::QrSegment;
 
 
 // Function prototypes
-static void doBasicDemo();
+static void doBasicDemo(char * input);
 static void doVarietyDemo();
 static void doSegmentDemo();
 static void doMaskDemo();
@@ -50,11 +50,11 @@ static void printQr(const QrCode &qr);
 
 
 // The main application program.
-int main() {
-	doBasicDemo();
-	doVarietyDemo();
-	doSegmentDemo();
-	doMaskDemo();
+int main(int argc, char ** argv) {
+	doBasicDemo(argv[1]);
+	// doVarietyDemo();
+	// doSegmentDemo();
+	// doMaskDemo();
 	return EXIT_SUCCESS;
 }
 
@@ -63,8 +63,8 @@ int main() {
 /*---- Demo suite ----*/
 
 // Creates a single QR Code, then prints it to the console.
-static void doBasicDemo() {
-	const char *text = "Hello, world!";              // User-supplied text
+static void doBasicDemo(char * input) {
+	const char *text = (const char *)input;              // User-supplied text
 	const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // Error correction level
 	
 	// Make and print the QR Code symbol
